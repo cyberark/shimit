@@ -1,6 +1,6 @@
 # shimit
 
-`shimit` is a python tool that implements the Golden SAML attack. More informations on this can be found in the following [article](https://www.cyberark.com/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-to-cloud-apps) on our blog.
+`shimit` is a python tool that implements the Golden SAML attack. More informations on this can be found in the following [article](https://www.cyberark.com/threat-research-blog/golden-saml-newly-discovered-attack-technique-forges-authentication-cloud-apps/) on our blog.
 
 ```
 python .\shimit.py -h
