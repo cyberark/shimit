@@ -26,7 +26,7 @@ After generating and signing the _SAMLResponse_'s _assertion_, shimit will call 
 For installing the required modules, run the following command:
 
 ```
-python -m pip install boto3 botocore defusedxml enum python_dateutil lxml signxml
+pip install -r requirements.txt
 ```
 ### AWS cli ###
 Needs to be installed in order to use the credentials obtained.

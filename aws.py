@@ -1,3 +1,4 @@
+from builtins import str
 import os, botocore, boto3, subprocess
 import lxml.etree as etree
 from base64 import b64encode, b64decode
