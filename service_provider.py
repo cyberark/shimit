@@ -1,8 +1,10 @@
+from builtins import str
+from builtins import object
 import dateutil.parser
 from datetime import datetime, timedelta
 from signxml import XMLSignatureProcessor
 
-class SP():
+class SP(object):
     ''' Abstract class that describes a Service Provider.'''
     
     def __init__(self):
